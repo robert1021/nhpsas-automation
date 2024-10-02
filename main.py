@@ -42,11 +42,8 @@ if __name__ == '__main__':
 
     submissions = load_column_from_excel(submissions_path, "SUBMISSION")
     print(submissions)
-    #
-    # # TODO: Need to add logic into code to check if there is enough fields
-    # # If there isnt click one of the fields and click the "Insert Record" button in menubar
-    #
-    for sub in submissions:
-        print(f"Working on {sub}")
+
+    for idx, sub in enumerate(submissions):
+        print(f"Working on {sub} - {idx + 1}/{len(submissions)}")
         enter_nhpsas_discontinuation(str(sub), nhpsas_user_id, date, is_applicant_gowling)
         print("-" * 50)

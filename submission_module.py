@@ -99,6 +99,7 @@ class SubmissionModule:
         pyautogui.move(0, 25)
         time.sleep(0.25)
         pyautogui.click()
+        time.sleep(0.5)
         if isGowling:
             pyautogui.write(f"Discontinuation requested by licensee on {discontinuation_date}. Notice sent via Titan.", interval=0.05)
         else:

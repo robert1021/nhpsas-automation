@@ -22,7 +22,7 @@ def terminate_program(message: str):
     sys.exit()
 
 
-def search_for_image(image: str, confidence=0.85, grayscale=False, wait_time=3, times_to_search=20, quit_program=True):
+def search_for_image(image: str, confidence=0.90, grayscale=False, wait_time=3, times_to_search=20, quit_program=True):
     search_count = 0
     print("Searching...")
     coords = pyautogui.locateCenterOnScreen(image, confidence=confidence, grayscale=grayscale)
