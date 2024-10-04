@@ -96,7 +96,6 @@ class TrackingModule:
 
     def add_status_type_cancellation_of_licence(self, discontinuation_date: str, isGowling: bool):
         tracking_status_area_coord = search_for_image(self.tracking_status_area_img)
-        # empty_field_coord = search_for_image(self.tracking_status_status_type_empty_field_img, confidence=0.96)
         pyautogui.moveTo(tracking_status_area_coord)
         time.sleep(0.5)
         pyautogui.move(0, 35)
@@ -122,7 +121,6 @@ class TrackingModule:
         pydirectinput.press("tab")
         time.sleep(0.5)
         d2 = datetime.datetime.now()
-        print(d2)
         # Need to wait so at least 1 minute has gone by between start and end date
         while str(d1).split(" ")[1][:5] == str(d2).split(" ")[1][:5]:
             time.sleep(5)

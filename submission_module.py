@@ -16,6 +16,7 @@ class SubmissionModule:
         self.submission_id_img = os.path.join(image_path, "nhpsas_modules", "submission", "submission_id_field.PNG")
         self.attributes_tab_img = os.path.join(image_path, "nhpsas_modules", "submission", "attributes_tab.PNG")
         self.attribute_type_empty_field_img = os.path.join(image_path, "nhpsas_modules", "submission", "attributes_tab_attribute_type_empty_field.PNG")
+        self.attribute_type_empty_field_alt_img = os.path.join(image_path, "nhpsas_modules", "submission", "attributes_tab_attribute_type_empty_field_alt.PNG")
         self.cancelled_by_licensee_search_img = os.path.join(image_path, "nhpsas_modules", "submission", "cancelled_by_licensee_search.PNG")
         self.cancelled_notice_search_img = os.path.join(image_path, "nhpsas_modules", "submission", "cancelled_notice_search.PNG")
         self.attribute_search_ok_btn_img = os.path.join(image_path, "nhpsas_modules", "submission", "attribute_type_search_ok_btn.PNG")
@@ -23,6 +24,7 @@ class SubmissionModule:
         self.date_value_img = os.path.join(image_path, "nhpsas_modules", "submission", "date_value.PNG")
         self.date_value_ok_btn_img = os.path.join(image_path, "nhpsas_modules", "submission", "date_value_ok_btn.PNG")
         self.long_text_img = os.path.join(image_path, "nhpsas_modules", "submission", "long_text.PNG")
+        self.attributes_list = os.path.join(image_path, "nhpsas_modules", "submission", "attribute_list.PNG")
 
     def ignore_errors(self):
         # Check for forms error company contact
@@ -55,8 +57,22 @@ class SubmissionModule:
         pyautogui.click()
 
     def add_attribute_type_cancelled_by_licensee(self, discontinuation_date: str, isGowling: bool):
-        empty_field_coord = search_for_image(self.attribute_type_empty_field_img)
-        pyautogui.moveTo(empty_field_coord)
+        empty_field_coord = search_for_image(self.attribute_type_empty_field_img, quit_program=False, wait_time=3, times_to_search=3)
+        print(empty_field_coord)
+        if empty_field_coord is None:
+            attribute_list_coord = search_for_image(self.attributes_list)
+            time.sleep(0.25)
+            pyautogui.moveTo(attribute_list_coord)
+            pyautogui.move(0, 50)
+            pyautogui.click()
+            time.sleep(0.25)
+            self.menubar.insert_record()
+            time.sleep(0.5)
+            empty_field_alt_coord = search_for_image(self.attribute_type_empty_field_alt_img, grayscale=True)
+            pyautogui.moveTo(empty_field_alt_coord)
+        else:
+            pyautogui.moveTo(empty_field_coord)
+
         time.sleep(0.25)
         pyautogui.click()
         time.sleep(0.25)
@@ -107,8 +123,21 @@ class SubmissionModule:
         self.menubar.save()
 
     def add_attribute_type_cancellation_notice(self, discontinuation_date, isGowling: bool):
-        empty_field_coord = search_for_image(self.attribute_type_empty_field_img)
-        pyautogui.moveTo(empty_field_coord)
+        empty_field_coord = search_for_image(self.attribute_type_empty_field_img, quit_program=False, wait_time=3, times_to_search=3)
+        if empty_field_coord is None:
+            attribute_list_coord = search_for_image(self.attributes_list)
+            time.sleep(0.25)
+            pyautogui.moveTo(attribute_list_coord)
+            pyautogui.move(0, 50)
+            pyautogui.click()
+            time.sleep(0.25)
+            self.menubar.insert_record()
+            time.sleep(0.5)
+            empty_field_alt_coord = search_for_image(self.attribute_type_empty_field_alt_img, grayscale=True)
+            pyautogui.moveTo(empty_field_alt_coord)
+        else:
+            pyautogui.moveTo(empty_field_coord)
+
         time.sleep(0.25)
         pyautogui.click()
         time.sleep(0.25)
@@ -156,7 +185,3 @@ class SubmissionModule:
         else:
             pyautogui.write(f"Discontinuation requested by licensee on {discontinuation_date}. Notice sent via ePost.", interval=0.05)
         self.menubar.save()
-
-
-
-
