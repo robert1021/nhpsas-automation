@@ -80,6 +80,12 @@ class TrackingModule:
         time.sleep(0.25)
         pyautogui.move(400, 25)
         time.sleep(0.25)
+        d2 = datetime.datetime.now()
+        # Need to wait so at least 1 minute has gone by between start and end date
+        while str(d1).split(" ")[1][:5] == str(d2).split(" ")[1][:5]:
+            time.sleep(5)
+            d2 = datetime.datetime.now()
+        time.sleep(1)
         pyautogui.click()
         calendar_ok_btn_coord = search_for_image(self.calendar_ok_btn_img)
         pyautogui.moveTo(calendar_ok_btn_coord)
